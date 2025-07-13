@@ -1,0 +1,95 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+services:
+  redis-node-0:
+    image: docker.io/bitnami/redis-cluster
+    ports:
+      - '7070:7070'
+      - '17070:17070'
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=yes'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - REDIS_CLUSTER_ANNOUNCE_IP=host.docker.internal
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7070
+      # - REDIS_CLUSTER_ANNOUNCE_BUS_PORT=17070
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_PORT_NUMBER=7070
+
+  redis-node-1:
+    image: docker.io/bitnami/redis-cluster
+    ports:
+      - '7071:7071'
+      - '17071:17071'
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=yes'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - REDIS_CLUSTER_ANNOUNCE_IP=host.docker.internal
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7071
+      # - REDIS_CLUSTER_ANNOUNCE_BUS_PORT=17071
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_PORT_NUMBER=7071
+
+  redis-node-2:
+    image: docker.io/bitnami/redis-cluster
+    ports:
+      - '7072:7072'
+      - '17072:17072'
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=yes'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - REDIS_CLUSTER_ANNOUNCE_IP=host.docker.internal
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7072
+      # - REDIS_CLUSTER_ANNOUNCE_BUS_PORT=17072
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_PORT_NUMBER=7072
+
+  redis-node-3:
+    image: docker.io/bitnami/redis-cluster
+    ports:
+      - '7073:7073'
+      - '17073:17073'
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=yes'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - REDIS_CLUSTER_ANNOUNCE_IP=host.docker.internal
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7073
+      # - REDIS_CLUSTER_ANNOUNCE_BUS_PORT=17073
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_PORT_NUMBER=7073
+
+  redis-node-4:
+    image: docker.io/bitnami/redis-cluster
+    ports:
+      - '7074:7074'
+      - '17074:17074'
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=yes'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - REDIS_CLUSTER_ANNOUNCE_IP=host.docker.internal
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7074
+      # - REDIS_CLUSTER_ANNOUNCE_BUS_PORT=17074
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_PORT_NUMBER=7074
+
+  redis-node-5:
+    image: docker.io/bitnami/redis-cluster
+    ports:
+      - '7075:7075'
+      - '17075:17075'
+    depends_on:
+      - redis-node-0
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+      - redis-node-4
+    environment:
+      - 'ALLOW_EMPTY_PASSWORD=yes'
+      - 'REDIS_CLUSTER_REPLICAS=1'
+      - 'REDIS_NODES=redis-node-0:7070 redis-node-1:7071 redis-node-2:7072 redis-node-3:7073 redis-node-4:7074 redis-node-5:7075'
+      - 'REDIS_CLUSTER_CREATOR=yes'
+      - REDIS_CLUSTER_ANNOUNCE_IP=host.docker.internal
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7075
+      # - REDIS_CLUSTER_ANNOUNCE_BUS_PORT=17075
+      - REDIS_CLUSTER_DYNAMIC_IPS=no
+      - REDIS_PORT_NUMBER=7075
